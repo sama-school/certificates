@@ -9,7 +9,9 @@
     />
     <meta name="theme-color" content="#173b77" />
     <meta name="referrer" content="no-referrer" />
-    <title>مدارس سما التكنولوجيا للتميز والإبداع | بوابة الاستعلام عن الشهادات</title>
+    <title>
+      مدارس سما التكنولوجيا للتميز والإبداع | بوابة الاستعلام عن الشهادات
+    </title>
     <link rel="icon" type="image/jpeg" href="./assets/school-logo.jpg" />
     <link
       rel="preload"
@@ -95,7 +97,8 @@
             alt="شعار المدرسة"
           />
           <span class="brand-copy"
-            ><strong data-school-name>مدارس سما التكنولوجيا للتميز والإبداع</strong
+            ><strong data-school-name
+              >مدارس سما التكنولوجيا للتميز والإبداع</strong
             ><span>بوابة الاستعلام عن الشهادات</span></span
           >
         </a>
@@ -222,7 +225,11 @@
                     <use id="result-icon-use" href="#i-check" /></svg
                 ></span>
                 <div>
-                  <h3 id="result-title"></h3>
+                  <h3
+                    id="result-title"
+                    tabindex="-1"
+                    aria-describedby="result-description"
+                  ></h3>
                   <p id="result-description"></p>
                 </div>
               </div>
@@ -264,49 +271,6 @@
             <svg class="icon" aria-hidden="true"><use href="#i-info" /></svg>لا
             يتم حفظ الرقم الوطني في هذا المتصفح.
           </p>
-
-          <section
-            class="pdf-viewer"
-            id="pdf-viewer"
-            aria-labelledby="viewer-title"
-            hidden
-          >
-            <div class="viewer-heading">
-              <h2 id="viewer-title">
-                <svg class="icon" aria-hidden="true"><use href="#i-file" /></svg
-                >معاينة الشهادة
-              </h2>
-              <button
-                class="icon-button"
-                id="close-viewer"
-                type="button"
-                aria-label="إغلاق معاينة الشهادة"
-              >
-                <svg class="icon" aria-hidden="true">
-                  <use href="#i-close" />
-                </svg>
-              </button>
-            </div>
-            <div class="viewer-fallback">
-              <p id="viewer-message">
-                إذا لم تظهر الشهادة، يمكنك فتحها في نافذة جديدة أو تحميلها.
-              </p>
-              <a
-                id="open-pdf-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-link"
-                >فتح الشهادة في نافذة جديدة<svg class="icon" aria-hidden="true">
-                  <use href="#i-external" /></svg
-              ></a>
-            </div>
-            <iframe
-              id="pdf-frame"
-              title="معاينة الشهادة المدرسية بصيغة PDF"
-              referrerpolicy="no-referrer"
-              hidden
-            ></iframe>
-          </section>
         </div>
       </section>
 
@@ -350,8 +314,11 @@
                 ><svg class="icon"><use href="#i-download" /></svg></span
               ><span class="step-number">٠٣</span>
             </div>
-            <h3>اعرض الشهادة أو حمّلها</h3>
-            <p>اطّلع على شهادتك مباشرة، أو احتفظ بنسخة بصيغة PDF على جهازك.</p>
+            <h3>تُفتح شهادتك مباشرة</h3>
+            <p>
+              عند العثور على شهادتك، تُفتح تلقائياً في المتصفح لتطّلع عليها أو
+              تحفظها على جهازك.
+            </p>
           </article>
         </div>
       </section>
@@ -402,9 +369,8 @@
               </svg>
             </summary>
             <p>
-              نعم، اضغط على «تحميل الشهادة» بعد ظهور نتيجة البحث. إذا لم تعمل
-              المعاينة على هاتفك، استخدم «فتح الشهادة في نافذة جديدة» ثم احفظها من
-              قائمة المتصفح.
+              نعم، تُفتح الشهادة مباشرة بعد العثور عليها. استخدم خيار التحميل أو
+              الحفظ من عارض PDF أو قائمة المتصفح للاحتفاظ بها على هاتفك.
             </p>
           </details>
         </div>
@@ -432,7 +398,9 @@
             alt=""
             width="44"
             height="44"
-          /><strong data-school-name>مدارس سما التكنولوجيا للتميز والإبداع</strong>
+          /><strong data-school-name
+            >مدارس سما التكنولوجيا للتميز والإبداع</strong
+          >
         </div>
         <p>
           جميع الحقوق محفوظة © <span id="current-year">2026</span>

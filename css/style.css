@@ -617,7 +617,7 @@ input[aria-invalid="true"] {
   height: 14px;
 }
 
-/* Search feedback and viewer. Dynamic content never uses HTML injection. */
+/* Search feedback. Dynamic content never uses HTML injection. */
 .loading-state {
   display: flex;
   align-items: center;
@@ -731,84 +731,27 @@ input[aria-invalid="true"] {
   width: 17px;
   height: 17px;
 }
-.pdf-viewer {
-  margin: 25px auto 0;
-  max-width: 950px;
-  text-align: right;
-  border: 1px solid #dce4f0;
-  border-radius: 16px;
-  background: #fff;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  scroll-margin-top: 24px;
+.result-panel.attention-shake,
+.input-error.attention-shake {
+  animation: feedback-shake 0.45s ease-in-out;
 }
-.viewer-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid var(--line);
-}
-.viewer-heading h2 {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 18px;
-  color: var(--navy);
-}
-.viewer-heading h2 .icon {
-  width: 21px;
-  height: 21px;
-  color: var(--blue);
-}
-.icon-button {
-  display: grid;
-  place-items: center;
-  background: #f2f5fa;
-  color: var(--muted);
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-}
-.icon-button:hover {
-  background: #e5edfb;
-  color: var(--blue);
-}
-.icon-button .icon {
-  width: 19px;
-  height: 19px;
-}
-.viewer-fallback {
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 12px;
-  background: #f8faff;
-}
-.viewer-fallback p {
-  color: var(--muted);
-}
-.text-link {
-  color: var(--blue);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.text-link .icon {
-  width: 14px;
-  height: 14px;
-}
-iframe {
-  display: block;
-  border: 0;
-  width: 100%;
-  height: clamp(400px, 70vh, 820px);
-  background: #edf0f5;
+@keyframes feedback-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
 }
 @keyframes appear {
   from {
@@ -1111,11 +1054,6 @@ iframe {
   .footer-location {
     display: none;
   }
-  .viewer-fallback {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 7px;
-  }
 }
 @media (max-width: 520px) {
   .container {
@@ -1305,15 +1243,6 @@ iframe {
   }
   .footer-inner p {
     font-size: 11px;
-  }
-  .viewer-heading {
-    padding: 12px 15px;
-  }
-  .viewer-heading h2 {
-    font-size: 16px;
-  }
-  .viewer-fallback {
-    padding: 13px 15px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

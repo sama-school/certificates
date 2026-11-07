@@ -15,6 +15,7 @@ const types = {
   ".js": "text/javascript",
   ".css": "text/css",
   ".svg": "image/svg+xml",
+  ".jpg": "image/jpeg",
   ".ttf": "font/ttf",
   ".pdf": "application/pdf",
 };
@@ -127,6 +128,22 @@ async function main() {
       state,
     );
   const routePattern = "**/pdfs/*.pdf";
+  const directOpens = [];
+  let pauseDirectOpen = true;
+  // Observe automatic navigation without leaving the page for feedback tests.
+  // A separate real-navigation test below verifies the actual PDF opens.
+  await page.route("**/school-website/pdfs/**", (route) => {
+    const request = route.request();
+    if (
+      pauseDirectOpen &&
+      request.method() === "GET" &&
+      request.isNavigationRequest()
+    ) {
+      directOpens.push(request.url());
+      return route.abort("aborted");
+    }
+    return route.fallback();
+  });
   await fs.mkdir(path.join(root, "test-results"), { recursive: true });
 
   try {
@@ -224,7 +241,12 @@ async function main() {
       assert.equal(accepted, true);
       // Synthetic paste has no default editing action; insert its text explicitly.
       await page.keyboard.insertText("0123456789");
+      const automaticOpen = page.waitForRequest(
+        (request) =>
+          request.method() === "GET" && request.isNavigationRequest(),
+      );
       await field.press("Enter");
+      await automaticOpen;
       await page.waitForFunction(
         () => !document.getElementById("success-actions").hidden,
       );
@@ -240,46 +262,35 @@ async function main() {
       );
       assert.equal(heads.get("pdfs/0123456789.pdf"), 1);
     });
-    await test("View uses the verified document; close restores focus", async () => {
+    await test("Success opens the verified certificate automatically without an iframe", async () => {
+      assert.equal(directOpens.length, 1);
+      assert.equal(directOpens[0], origin + mount + "pdfs/0123456789.pdf");
+      assert.equal(await page.locator("iframe").count(), 0);
+      const navigation = page.waitForRequest(
+        (request) =>
+          request.method() === "GET" && request.isNavigationRequest(),
+      );
       await page.locator("#view-button").click();
-      assert.equal(await page.locator("#pdf-viewer").isVisible(), true);
-      assert.match(
-        await page.locator("#pdf-frame").getAttribute("src"),
-        /\/school-website\/pdfs\/0123456789\.pdf#view=FitH$/,
-      );
       assert.equal(
-        await page.locator("#open-pdf-link").getAttribute("rel"),
-        "noopener noreferrer",
-      );
-      await page.locator("#close-viewer").click();
-      assert.equal(await page.locator("#pdf-viewer").isVisible(), false);
-      assert.equal(await page.locator("#pdf-frame").getAttribute("src"), null);
-      assert.equal(
-        await page
-          .locator("#view-button")
-          .evaluate((el) => document.activeElement === el),
-        true,
+        (await navigation).url(),
+        origin + mount + "pdfs/0123456789.pdf",
       );
     });
     await test("Download preserves the exact filename and PDF content", async () => {
+      pauseDirectOpen = false;
       const downloadEvent = page.waitForEvent("download");
       await page.locator("#download-link").click();
       const download = await downloadEvent;
       assert.equal(download.suggestedFilename(), "0123456789.pdf");
       const buffer = await fs.readFile(await download.path());
       assert.equal(buffer.subarray(0, 5).toString(), "%PDF-");
+      pauseDirectOpen = true;
     });
-    await test("Editing clears previous result, viewer and links immediately", async () => {
-      await page.locator("#view-button").click();
+    await test("Editing clears previous result and links immediately", async () => {
       await field.fill("9876543210");
       assert.equal(await page.locator("#result-panel").isVisible(), false);
-      assert.equal(await page.locator("#pdf-viewer").isVisible(), false);
       assert.equal(
         await page.locator("#download-link").getAttribute("href"),
-        null,
-      );
-      assert.equal(
-        await page.locator("#open-pdf-link").getAttribute("href"),
         null,
       );
     });
@@ -421,25 +432,27 @@ async function main() {
       );
       await timeoutPage.close();
     });
-    await test("Unsupported inline PDF has an accessible new-tab fallback", async () => {
+    await test("Certificate opens directly in the same tab; Back clears the previous result", async () => {
       const mobile = await context.newPage();
-      await mobile.addInitScript(() =>
-        Object.defineProperty(navigator, "pdfViewerEnabled", { value: false }),
-      );
+      await mobile.setViewportSize({ width: 390, height: 844 });
+      const methods = [];
+      mobile.on("request", (request) => {
+        if (request.url().endsWith("/pdfs/0123456789.pdf"))
+          methods.push(request.method());
+      });
       await mobile.goto(origin + mount);
       await mobile.locator("#national-id").fill("0123456789");
+      const opened = mobile.waitForURL(origin + mount + "pdfs/0123456789.pdf");
       await mobile.locator("#search-button").click();
-      await mobile.locator("#view-button").click();
-      assert.equal(await mobile.locator("#pdf-frame").isVisible(), false);
-      assert.match(
-        await mobile.locator("#viewer-message").innerText(),
-        /تعذر عرض الشهادة داخل المتصفح/,
+      await opened;
+      assert.deepEqual(methods, ["HEAD", "GET"]);
+      await mobile.goBack();
+      await mobile.waitForSelector("#search-form");
+      assert.equal(await mobile.locator("#result-panel").isVisible(), false);
+      assert.equal(
+        await mobile.locator("#download-link").getAttribute("href"),
+        null,
       );
-      const popupEvent = mobile.waitForEvent("popup");
-      await mobile.locator("#open-pdf-link").click();
-      const popup = await popupEvent;
-      assert.ok(popup.url().includes("/pdfs/0123456789.pdf"));
-      await popup.close();
       await mobile.close();
     });
     await test("Mobile, tablet, desktop and reduced-motion layouts", async () => {

@@ -19,7 +19,6 @@
     network:
       "تعذر الاتصال حالياً. يرجى التحقق من اتصال الإنترنت والمحاولة مجدداً",
     unexpected: "حدث خطأ أثناء التحقق من الشهادة. يرجى المحاولة مرة أخرى",
-    viewer: "تعذر عرض الشهادة داخل المتصفح. يمكنك فتحها في نافذة جديدة أو تحميلها",
     local:
       "يرجى فتح الموقع عبر خادم HTTP محلي أو عبر GitHub Pages لاستخدام البحث.",
   });
@@ -30,10 +29,7 @@
   const searchButton = byId("search-button");
   const inputError = byId("input-error");
   const resultPanel = byId("result-panel");
-  const viewer = byId("pdf-viewer");
-  const frame = byId("pdf-frame");
   const downloadLink = byId("download-link");
-  const openLink = byId("open-pdf-link");
   const announcement = byId("announcement");
   let activeRequest = null;
   let generation = 0;
@@ -69,18 +65,20 @@
     form.setAttribute("aria-busy", String(loading));
   }
 
+  function animateAttention(element) {
+    element.classList.remove("attention-shake");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Restart the effect even when the same error appears on a repeated search.
+    void element.offsetWidth;
+    element.classList.add("attention-shake");
+  }
+
   function setInputError(message = "") {
     inputError.textContent = message;
     inputError.hidden = !message;
     input.setAttribute("aria-invalid", String(Boolean(message)));
-  }
-
-  function closeViewer(restoreFocus = false) {
-    viewer.hidden = true;
-    frame.hidden = true;
-    frame.removeAttribute("src");
-    openLink.removeAttribute("href");
-    if (restoreFocus && currentPdf) byId("view-button").focus();
+    if (message) animateAttention(inputError);
+    else inputError.classList.remove("attention-shake");
   }
 
   function resetSearch() {
@@ -92,8 +90,8 @@
       activeRequest = null;
     }
     currentPdf = null;
-    closeViewer();
     resultPanel.hidden = true;
+    resultPanel.classList.remove("attention-shake");
     byId("success-actions").hidden = true;
     byId("retry-button").hidden = true;
     downloadLink.removeAttribute("href");
@@ -141,6 +139,16 @@
     byId("retry-button").hidden = state === "success";
     resultPanel.hidden = false;
     announcement.textContent = `${byId("result-title").textContent}. ${message}`;
+    if (state !== "success") {
+      byId("result-title").focus({ preventScroll: true });
+      resultPanel.scrollIntoView({
+        block: "nearest",
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+      });
+      animateAttention(resultPanel);
+    }
   }
 
   function validationMessage(id) {
@@ -228,8 +236,9 @@
       downloadLink.download = currentPdf.filename;
       showResult(
         "success",
-        "شهادتك جاهزة. يمكنك عرضها مباشرة أو تحميل نسخة على جهازك.",
+        "شهادتك جاهزة، جارٍ فتحها مباشرة. يمكنك أيضاً تحميل نسخة على جهازك.",
       );
+      openCertificate();
     } catch (error) {
       if (requestGeneration !== generation) return;
       if (error.name === "AbortError" && !request.timedOut) return;
@@ -243,34 +252,11 @@
     }
   }
 
-  function showViewerError() {
-    frame.hidden = true;
-    frame.removeAttribute("src");
-    byId("viewer-message").textContent = MESSAGES.viewer;
-    announcement.textContent = MESSAGES.viewer;
-  }
-
-  function openViewer() {
+  function openCertificate() {
     if (!currentPdf) return;
-    openLink.href = currentPdf.url;
-    viewer.hidden = false;
-    byId("viewer-message").textContent =
-      "إذا لم تظهر الشهادة، يمكنك فتحها في نافذة جديدة أو تحميلها.";
-    // Browser PDF plug-ins do not expose a reliable render-success event.
-    // Keep the new-tab fallback visible even when an iframe load event fires.
-    if (navigator.pdfViewerEnabled === false) {
-      showViewerError();
-    } else {
-      frame.hidden = false;
-      frame.src = `${currentPdf.url}#view=FitH`;
-    }
-    byId("close-viewer").focus({ preventScroll: true });
-    viewer.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "instant"
-        : "smooth",
-      block: "start",
-    });
+    // Same-tab navigation works after async HEAD without popup permissions.
+    // Only a URL confirmed by the current search can reach this function.
+    window.location.assign(currentPdf.url);
   }
 
   input.addEventListener("beforeinput", (event) => {
@@ -288,19 +274,12 @@
   });
   input.addEventListener("input", handleInput);
   form.addEventListener("submit", searchPdf);
-  byId("view-button").addEventListener("click", openViewer);
-  byId("close-viewer").addEventListener("click", () => closeViewer(true));
-  frame.addEventListener("error", () => {
-    if (!viewer.hidden && currentPdf) showViewerError();
-  });
+  byId("view-button").addEventListener("click", openCertificate);
   byId("retry-button").addEventListener("click", () => {
     resetSearch();
     setInputError();
     input.focus();
     input.select();
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !viewer.hidden) closeViewer(true);
   });
   // Restoring a page from the back-forward cache must not restore an old result.
   window.addEventListener("pageshow", (event) => {
