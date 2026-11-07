@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="بوابة مدارس سما التكنولوجيا للتميز والإبداع للاستعلام عن الشهادات وعرضها وتحميلها باستخدام الرقم الوطني."
+    />
+    <meta name="theme-color" content="#173b77" />
+    <meta name="referrer" content="no-referrer" />
+    <title>مدارس سما التكنولوجيا للتميز والإبداع | بوابة الاستعلام عن الشهادات</title>
+    <link rel="icon" type="image/jpeg" href="./assets/school-logo.jpg" />
+    <link
+      rel="preload"
+      href="./assets/fonts/Tajawal-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./assets/fonts/Tajawal-Bold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#national-id">انتقل إلى البحث</a>
+    <svg
+      class="icon-library"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="10.8" cy="10.8" r="6.8" />
+        <path d="m16 16 4.5 4.5" />
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path d="M20 12H4m6-6-6 6 6 6" />
+      </symbol>
+      <symbol id="i-file" viewBox="0 0 24 24">
+        <path
+          d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zm0 0v6h6M8 13h8M8 17h5"
+        />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="m6 12 4 4 8-8" />
+      </symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24">
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+        <circle cx="12" cy="12" r="3" />
+      </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24">
+        <path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4" />
+      </symbol>
+      <symbol id="i-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 11v6m0-10v.1" />
+      </symbol>
+      <symbol id="i-id" viewBox="0 0 24 24">
+        <rect x="2" y="5" width="20" height="14" rx="3" />
+        <circle cx="8" cy="10" r="2" />
+        <path d="M5 16c0-4 6-4 6 0m3-6h5m-5 4h4" />
+      </symbol>
+      <symbol id="i-external" viewBox="0 0 24 24">
+        <path
+          d="M14 3h7v7m0-7L10 14m0-10H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-5"
+        />
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24">
+        <path d="m6 6 12 12M6 18 18 6" />
+      </symbol>
+      <symbol id="i-help" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M9.5 9a2.5 2.5 0 1 1 4 2c-1.5 1-1.5 1-1.5 3m0 3v.1" />
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
+    </svg>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="الصفحة الرئيسية للمدرسة">
+          <img
+            class="brand-logo"
+            data-school-logo
+            src="./assets/school-logo.jpg"
+            width="64"
+            height="64"
+            alt="شعار المدرسة"
+          />
+          <span class="brand-copy"
+            ><strong data-school-name>مدارس سما التكنولوجيا للتميز والإبداع</strong
+            ><span>بوابة الاستعلام عن الشهادات</span></span
+          >
+        </a>
+        <nav class="main-nav" aria-label="التنقل الرئيسي">
+          <a class="nav-current" href="#lookup" aria-current="location"
+            >الاستعلام عن شهادة</a
+          >
+          <a href="#how-it-works">طريقة الاستخدام</a>
+          <a href="#faq">أسئلة شائعة</a>
+        </nav>
+        <span class="header-caption"
+          ><span class="status-dot"></span>بوابة الخدمات الإلكترونية</span
+        >
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="lookup" aria-labelledby="hero-title">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+        <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+        <div class="container hero-content">
+          <div class="eyebrow">
+            <span class="status-dot"></span>خطوة صغيرة. وصول أسهل.
+          </div>
+          <h1 id="hero-title">بوابة الاستعلام عن <span>الشهادات</span></h1>
+          <p class="hero-description">
+            يمكنك البحث عن شهادتك وعرضها وتحميلها بسهولة باستخدام الرقم الوطني
+          </p>
+
+          <div class="lookup-shell">
+            <span class="floating-file floating-file-one" aria-hidden="true"
+              ><svg class="icon"><use href="#i-file" /></svg
+              ><span>PDF</span></span
+            >
+            <span class="floating-file floating-file-two" aria-hidden="true"
+              ><svg class="icon"><use href="#i-check" /></svg
+            ></span>
+
+            <div class="search-card">
+              <div class="card-heading">
+                <span class="icon-tile"
+                  ><svg class="icon"><use href="#i-search" /></svg
+                ></span>
+                <div>
+                  <h2>ابحث عن شهادتك المدرسية</h2>
+                  <p>أدخل رقمك الوطني للعثور على الشهادة الخاصة بك</p>
+                </div>
+              </div>
+
+              <form id="search-form" novalidate>
+                <label for="national-id"
+                  >الرقم الوطني <span class="required-label">مطلوب</span></label
+                >
+                <div class="search-controls">
+                  <div class="input-wrap">
+                    <svg class="icon input-icon" aria-hidden="true">
+                      <use href="#i-id" />
+                    </svg>
+                    <input
+                      id="national-id"
+                      name="national-id"
+                      type="text"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      maxlength="64"
+                      dir="ltr"
+                      placeholder="أدخل الرقم الوطني"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                      enterkeyhint="search"
+                      aria-describedby="input-hint input-error"
+                      required
+                    />
+                  </div>
+                  <button
+                    class="button button-primary search-button"
+                    type="submit"
+                    id="search-button"
+                  >
+                    <svg class="icon search-button-icon" aria-hidden="true">
+                      <use href="#i-search" />
+                    </svg>
+                    <span
+                      class="spinner"
+                      id="search-spinner"
+                      aria-hidden="true"
+                      hidden
+                    ></span>
+                    <span id="search-button-label">بحث عن الشهادة</span>
+                  </button>
+                </div>
+                <p class="input-hint" id="input-hint">
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-info" /></svg
+                  >يرجى إدخال الرقم الوطني باستخدام الأرقام الإنجليزية
+                </p>
+                <p class="input-error" id="input-error" role="alert" hidden></p>
+              </form>
+
+              <div class="card-note">
+                <span class="note-mark" aria-hidden="true"
+                  ><svg class="icon"><use href="#i-check" /></svg
+                ></span>
+                <p>وصول بسيط إلى شهاداتك، في أي وقت ومن أي جهاز.</p>
+                <span class="pdf-tag">PDF</span>
+              </div>
+            </div>
+
+            <div class="loading-state" id="loading-state" hidden>
+              <span class="spinner" aria-hidden="true"></span>
+              <p>جارٍ البحث عن شهادتك، يرجى الانتظار...</p>
+            </div>
+            <section
+              class="result-panel"
+              id="result-panel"
+              aria-labelledby="result-title"
+              hidden
+            >
+              <div class="result-heading">
+                <span class="result-icon"
+                  ><svg class="icon" aria-hidden="true">
+                    <use id="result-icon-use" href="#i-check" /></svg
+                ></span>
+                <div>
+                  <h3 id="result-title"></h3>
+                  <p id="result-description"></p>
+                </div>
+              </div>
+              <div class="result-actions" id="success-actions" hidden>
+                <button
+                  class="button button-primary"
+                  id="view-button"
+                  type="button"
+                >
+                  <svg class="icon" aria-hidden="true">
+                    <use href="#i-eye" /></svg
+                  >عرض الشهادة
+                </button>
+                <a
+                  class="button button-secondary"
+                  id="download-link"
+                  referrerpolicy="no-referrer"
+                  ><svg class="icon" aria-hidden="true">
+                    <use href="#i-download" /></svg
+                  >تحميل الشهادة</a
+                >
+              </div>
+              <button
+                class="retry-button"
+                id="retry-button"
+                type="button"
+                hidden
+              >
+                تعديل الرقم والمحاولة مجدداً<svg
+                  class="icon"
+                  aria-hidden="true"
+                >
+                  <use href="#i-arrow" />
+                </svg>
+              </button>
+            </section>
+          </div>
+          <p class="privacy-note">
+            <svg class="icon" aria-hidden="true"><use href="#i-info" /></svg>لا
+            يتم حفظ الرقم الوطني في هذا المتصفح.
+          </p>
+
+          <section
+            class="pdf-viewer"
+            id="pdf-viewer"
+            aria-labelledby="viewer-title"
+            hidden
+          >
+            <div class="viewer-heading">
+              <h2 id="viewer-title">
+                <svg class="icon" aria-hidden="true"><use href="#i-file" /></svg
+                >معاينة الشهادة
+              </h2>
+              <button
+                class="icon-button"
+                id="close-viewer"
+                type="button"
+                aria-label="إغلاق معاينة الشهادة"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-close" />
+                </svg>
+              </button>
+            </div>
+            <div class="viewer-fallback">
+              <p id="viewer-message">
+                إذا لم تظهر الشهادة، يمكنك فتحها في نافذة جديدة أو تحميلها.
+              </p>
+              <a
+                id="open-pdf-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-link"
+                >فتح الشهادة في نافذة جديدة<svg class="icon" aria-hidden="true">
+                  <use href="#i-external" /></svg
+              ></a>
+            </div>
+            <iframe
+              id="pdf-frame"
+              title="معاينة الشهادة المدرسية بصيغة PDF"
+              referrerpolicy="no-referrer"
+              hidden
+            ></iframe>
+          </section>
+        </div>
+      </section>
+
+      <section
+        class="how-section container"
+        id="how-it-works"
+        aria-labelledby="how-title"
+      >
+        <div class="section-heading">
+          <span class="section-kicker">بكل بساطة</span>
+          <h2 id="how-title">شهادتك بين يديك في ثلاث خطوات</h2>
+          <p>تجربة سهلة، من البحث حتى التحميل.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-top">
+              <span class="step-icon"
+                ><svg class="icon"><use href="#i-id" /></svg></span
+              ><span class="step-number">٠١</span>
+            </div>
+            <h3>أدخل الرقم الوطني</h3>
+            <p>
+              اكتب رقمك الوطني بالأرقام الإنجليزية كما هو، مع الاحتفاظ بالأصفار
+              في البداية.
+            </p>
+          </article>
+          <article class="step-card">
+            <div class="step-top">
+              <span class="step-icon"
+                ><svg class="icon"><use href="#i-search" /></svg></span
+              ><span class="step-number">٠٢</span>
+            </div>
+            <h3>ابحث عن شهادتك</h3>
+            <p>
+              اضغط على زر البحث، وسنتحقق من توفر الشهادة المرتبطة برقمك الوطني.
+            </p>
+          </article>
+          <article class="step-card">
+            <div class="step-top">
+              <span class="step-icon"
+                ><svg class="icon"><use href="#i-download" /></svg></span
+              ><span class="step-number">٠٣</span>
+            </div>
+            <h3>اعرض الشهادة أو حمّلها</h3>
+            <p>اطّلع على شهادتك مباشرة، أو احتفظ بنسخة بصيغة PDF على جهازك.</p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="faq-section container"
+        id="faq"
+        aria-labelledby="faq-title"
+      >
+        <div class="faq-intro">
+          <span class="section-kicker">نحن هنا لمساعدتك</span>
+          <h2 id="faq-title">لديك استفسار؟</h2>
+          <p>إجابات سريعة لتصل إلى شهادتك بسهولة.</p>
+          <span class="faq-art" aria-hidden="true"
+            ><svg class="icon"><use href="#i-help" /></svg
+          ></span>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>
+              أين أجد الرقم الوطني؟<svg class="icon" aria-hidden="true">
+                <use href="#i-plus" />
+              </svg>
+            </summary>
+            <p>
+              تجد الرقم الوطني على بطاقة الأحوال المدنية أو دفتر العائلة. أدخله
+              كاملاً باستخدام الأرقام الإنجليزية، بما في ذلك أي أصفار في بدايته.
+            </p>
+          </details>
+          <details>
+            <summary>
+              ماذا أفعل إذا لم أجد شهادتي؟<svg class="icon" aria-hidden="true">
+                <use href="#i-plus" />
+              </svg>
+            </summary>
+            <p>
+              تأكد من صحة الرقم الوطني ثم أعد المحاولة. إذا استمرت المشكلة،
+              تواصل مع إدارة المدرسة للتأكد من توفر شهادتك على البوابة.
+            </p>
+          </details>
+          <details>
+            <summary>
+              هل يمكنني تحميل الشهادة من الهاتف؟<svg
+                class="icon"
+                aria-hidden="true"
+              >
+                <use href="#i-plus" />
+              </svg>
+            </summary>
+            <p>
+              نعم، اضغط على «تحميل الشهادة» بعد ظهور نتيجة البحث. إذا لم تعمل
+              المعاينة على هاتفك، استخدم «فتح الشهادة في نافذة جديدة» ثم احفظها من
+              قائمة المتصفح.
+            </p>
+          </details>
+        </div>
+      </section>
+      <noscript
+        ><p class="noscript-message">
+          يرجى تفعيل JavaScript في المتصفح لاستخدام البحث عن الشهادات.
+        </p></noscript
+      >
+      <div
+        id="announcement"
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <img
+            data-school-logo
+            src="./assets/school-logo.jpg"
+            alt=""
+            width="44"
+            height="44"
+          /><strong data-school-name>مدارس سما التكنولوجيا للتميز والإبداع</strong>
+        </div>
+        <p>
+          جميع الحقوق محفوظة © <span id="current-year">2026</span>
+          <span data-school-name>مدارس سما التكنولوجيا للتميز والإبداع</span>
+        </p>
+        <span class="footer-location">المملكة الأردنية الهاشمية</span>
+      </div>
+    </footer>
+  </body>
+</html>
